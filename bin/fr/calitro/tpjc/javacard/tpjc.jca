@@ -1,0 +1,248 @@
+// converted by version 1.3
+// on Fri Feb 25 17:36:07 CET 2022
+
+.package fr/calitro/tpjc {
+	.aid 0x1:0x2:0x3:0x4:0x5:0x6:0x7:0x8:0x9:0x0;
+	.version 1.0;
+
+	.imports {
+		0xA0:0x0:0x0:0x0:0x62:0x0:0x1 1.0;		//java/lang
+		0xA0:0x0:0x0:0x0:0x62:0x1:0x1 1.3;		//javacard/framework
+	}
+
+	.applet {
+		0x1:0x2:0x3:0x4:0x5:0x6:0x7:0x8:0x9:0x0:0x0 applet;
+	}
+
+	.constantPool {
+		// 0
+		instanceFieldRef short applet/cagnotte;
+		// 1
+		instanceFieldRef short applet/pinCode;
+		// 2
+		staticMethodRef 0.0.0()V;		// java/lang/Object.<init>()V
+		// 3
+		staticMethodRef 1.3.0()V;		// javacard/framework/Applet.<init>()V
+		// 4
+		classRef applet;
+		// 5
+		staticMethodRef applet/<init>()V;
+		// 6
+		virtualMethodRef 1.3.1()V;		// register()V
+		// 7
+		virtualMethodRef 1.10.1()[B;		// getBuffer()[B
+		// 8
+		staticMethodRef 1.7.1(S)V;		// javacard/framework/ISOException.throwIt(S)V
+		// 9
+		staticMethodRef APDUUtils/shortToByteArray(S[BS)V;
+		// 10
+		virtualMethodRef 1.10.8(SS)V;		// setOutgoingAndSend(SS)V
+		// 11
+		staticMethodRef APDUUtils/byteArrayToShort([BS)S;
+	}
+
+	.class public APDUUtils 0 extends 0.0 {		// extends java/lang/Object
+
+		.publicMethodTable 1 {
+			equals(Ljava/lang/Object;)Z;
+		}
+
+		.packageMethodTable 0 {
+		}
+
+		.method public <init>()V 0 {
+			.stack 1;
+			.locals 0;
+
+				L0:	aload_0;
+					invokespecial 2;		// java/lang/Object.<init>()V
+					return;
+		}
+
+		.method public static shortToByteArray(S[BS)V 1 {
+			.stack 4;
+			.locals 0;
+
+				L0:	aload_1;
+					sload_2;
+					sconst_1;
+					sadd;
+					sload_0;
+					sspush 255;
+					sand;
+					s2b;
+					bastore;
+					aload_1;
+					sload_2;
+					sload_0;
+					bspush 8;
+					sshr;
+					sspush 255;
+					sand;
+					s2b;
+					bastore;
+					return;
+		}
+
+		.method public static byteArrayToShort([BS)S 2 {
+			.stack 4;
+			.locals 0;
+
+				L0:	aload_0;
+					sload_1;
+					baload;
+					sspush 255;
+					sand;
+					bspush 8;
+					sshl;
+					aload_0;
+					sload_1;
+					sconst_1;
+					sadd;
+					baload;
+					sspush 255;
+					sand;
+					sor;
+					sreturn;
+		}
+
+	}
+
+	.class public applet 1 extends 1.3 {		// extends javacard/framework/Applet
+
+		.fields {
+			private short pinCode 0;		// S
+			private short cagnotte 1;		// S
+			private static final byte CAGNOTTE_CLA = -80;		// B
+			private static final short MAX_CAGNOTTE = 32000;		// S
+		}
+
+		.publicMethodTable 7 {
+			equals(Ljava/lang/Object;)Z;
+			register()V;
+			register([BSB)V;
+			selectingApplet()Z;
+			deselect()V;
+			getShareableInterfaceObject(Ljavacard/framework/AID;B)Ljavacard/framework/Shareable;;
+			select()Z;
+			process(Ljavacard/framework/APDU;)V;
+		}
+
+		.packageMethodTable 0 {
+		}
+
+		.method private <init>()V {
+			.stack 2;
+			.locals 0;
+
+				L0:	aload_0;
+					invokespecial 3;		// javacard/framework/Applet.<init>()V
+					aload_0;
+					sconst_0;
+					putfield_s 0;		// short fr/calitro/tpjc/applet.cagnotte
+					aload_0;
+					sspush 1234;
+					putfield_s 1;		// short fr/calitro/tpjc/applet.pinCode
+					return;
+		}
+
+		.method public static install([BSB)V 0 {
+			.stack 2;
+			.locals 0;
+
+				L0:	new 4;		// fr/calitro/tpjc/applet
+					dup;
+					invokespecial 5;		// fr/calitro/tpjc/applet.<init>()V
+					invokevirtual 6;		// register()V
+					return;
+		}
+
+		.method public process(Ljavacard/framework/APDU;)V 7 {
+			.stack 3;
+			.locals 5;
+
+			.descriptor	Ljavacard/framework/APDU;	1.10;
+
+				L0:	aload_1;
+					invokevirtual 7;		// getBuffer()[B
+					astore_2;
+					aload_2;
+					sconst_0;
+					baload;
+					bspush -80;
+					if_scmpeq L2;
+				L1:	sspush 28160;
+					invokestatic 8;		// javacard/framework/ISOException.throwIt(S)V
+				L2:	aload_2;
+					sconst_1;
+					baload;
+					sstore_3;
+					sload_3;
+					stableswitch L15 1 3 L3 L4 L9;
+				L3:	getfield_s_this 0;		// short fr/calitro/tpjc/applet.cagnotte
+					aload_2;
+					sconst_0;
+					invokestatic 9;		// fr/calitro/tpjc/APDUUtils.shortToByteArray(S[BS)V
+					aload_1;
+					sconst_0;
+					sconst_2;
+					invokevirtual 10;		// setOutgoingAndSend(SS)V
+					goto L15;
+				L4:	getfield_s_this 0;		// short fr/calitro/tpjc/applet.cagnotte
+					sspush 32000;
+					if_scmplt L6;
+				L5:	sspush 25088;
+					invokestatic 8;		// javacard/framework/ISOException.throwIt(S)V
+				L6:	aload_2;
+					sconst_2;
+					invokestatic 11;		// fr/calitro/tpjc/APDUUtils.byteArrayToShort([BS)S
+					sstore 4;
+					sload 4;
+					sspush 32000;
+					getfield_s_this 0;		// short fr/calitro/tpjc/applet.cagnotte
+					ssub;
+					if_scmplt L8;
+				L7:	aload_0;
+					sspush 32000;
+					putfield_s 0;		// short fr/calitro/tpjc/applet.cagnotte
+					goto L15;
+				L8:	aload_0;
+					getfield_s_this 0;		// short fr/calitro/tpjc/applet.cagnotte
+					sload 4;
+					sadd;
+					putfield_s 0;		// short fr/calitro/tpjc/applet.cagnotte
+					goto L15;
+				L9:	sconst_m1;
+					sstore 5;
+					aload_2;
+					sconst_5;
+					invokestatic 11;		// fr/calitro/tpjc/APDUUtils.byteArrayToShort([BS)S
+					sstore 5;
+					sload 5;
+					iflt L11;
+				L10:	sload 5;
+					getfield_s_this 1;		// short fr/calitro/tpjc/applet.pinCode
+					if_scmpeq L12;
+				L11:	sspush 27010;
+					invokestatic 8;		// javacard/framework/ISOException.throwIt(S)V
+				L12:	aload_2;
+					sconst_2;
+					invokestatic 11;		// fr/calitro/tpjc/APDUUtils.byteArrayToShort([BS)S
+					sstore 6;
+					sload 6;
+					getfield_s_this 0;		// short fr/calitro/tpjc/applet.cagnotte
+					if_scmple L14;
+				L13:	sspush 25088;
+					invokestatic 8;		// javacard/framework/ISOException.throwIt(S)V
+				L14:	aload_0;
+					getfield_s_this 0;		// short fr/calitro/tpjc/applet.cagnotte
+					sload 6;
+					ssub;
+					putfield_s 0;		// short fr/calitro/tpjc/applet.cagnotte
+					goto L15;
+				L15:	return;
+		}
+
+	}
+
+}
